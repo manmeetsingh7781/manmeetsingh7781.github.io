@@ -1,2 +1,14 @@
 <h1>Hello World, this is Manmmeet</h1>
 <h2>Welcome to my site</h2>
+<canvas id="canvas"/>
+<script type="text/javascript">
+  let canvas = document.getElementById("canvas");
+  let context = canvas.getContext("2D");
+  
+  context.beginPath();
+  context.rect(20, 40, 50, 50);
+  context.fillStyle = "#FF0000";
+  context.fill();
+  context.closePath();
+  
+</script>
