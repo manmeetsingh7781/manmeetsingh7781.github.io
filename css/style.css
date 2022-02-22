@@ -418,6 +418,11 @@ textarea.form-control {
   color: #fff;
 }
 
+ span.active {
+   color: orange;
+ }
+
+
 .hero-area {
   padding: 300px 0 200px;
   position: relative;
@@ -821,3 +826,4 @@ blockquote {
   font-weight: bold;
 }
 /*# sourceMappingURL=style.css.map */
+
