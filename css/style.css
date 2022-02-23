@@ -1,10 +1,12 @@
 /*  typography */
 @import url("https://fonts.googleapis.com/css?family=Playfair+Display:700|Roboto:400");
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+
 body {
   line-height: 1.2;
-  font-family: "Roboto", sans-serif;
-  -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
   font-size: 15px;
   color: #4c4c4c;
 }
@@ -827,3 +829,7 @@ blockquote {
 }
 /*# sourceMappingURL=style.css.map */
 
+
+html, body, p, h1, h2, h3, h4, h5, h6, a, li, footer, header, section, div, .footer-section{
+  font-family: "Roboto", sans-serif !important;
+}
