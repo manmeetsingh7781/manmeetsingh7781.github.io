@@ -830,6 +830,6 @@ blockquote {
 /*# sourceMappingURL=style.css.map */
 
 
-html, body, p, h1, h2, h3, h4, h5, h6, a, li, footer, header, section, div, .footer-section{
+html, body, p, h1, h2, h3, h4, h5, h6, a, li, footer, header, section, div, .footer-section, button{
   font-family: "Roboto", sans-serif !important;
 }
