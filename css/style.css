@@ -835,7 +835,7 @@ html, body, p, h1, h2, h3, h4, h5, h6, a, li, footer, header, section, div, .foo
 }
 
 .logo {
-  color: #fff;
+  color: #fff !important;
   font-family: 'Times New Roman', Times, serif !important;
   text-shadow: 1em 1em 1em rgba(0, 0, 0, 0.3);
 }
