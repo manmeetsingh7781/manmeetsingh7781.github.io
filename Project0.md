@@ -5,11 +5,13 @@
         <ul>
             <li>Home Page (active)
                 <ul>
-                    <li>Intro Banner: Name and my major</li>
-                    <li>General overview of my introduction. A single line</li>
-                    <li>Skill level in animation</li>
-                    <li>Education</li>
-                    <li>Work Experience</li>
+                    <li><strike>Intro Banner: Name and my major</strike></li>
+                    <li><strike>General overview of my introduction. A single line</strike></li>
+                    <li><strike>Skill level in animation</strike></li>
+                    <li><strike>Education</strike></li>
+                    <li><strike>Experience</strike></li>
+                    <li><strike>Services</strike></li>
+                    <li><strike>Footer</strike></li>
                 </ul>
             </li>
             <li>Blog of my notes
