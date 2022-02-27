@@ -3,18 +3,17 @@
     <li>Logo on Left side</li>
     <li>Right side:
         <ul>
-            <!-- ---------------DONE--------------------- -->
             <li>Home Page (active)
                 <ul>
-                    <li>Intro Banner: Name and my major</li>
-                    <li>General overview of my introduction. A single line</li>
-                    <li>Skill level in animation</li>
-                    <li>Education</li>
-                    <li>Work Experience</li>
+                    <li><strike>Intro Banner: Name and my major</strike></li>
+                    <li><strike>General overview of my introduction. A single line</strike></li>
+                    <li><strike>Skill level in animation</strike></li>
+                    <li><strike>Education</strike></li>
+                    <li><strike>Experience</strike></li>
+                    <li><strike>Services</strike></li>
+                    <li><strike>Footer</strike></li>
                 </ul>
             </li>
-            <!-- ------------------------------------ -->
-
             <li>Blog of my notes
                 <ul>
                     <li style="list-style-type: none;">
@@ -58,10 +57,10 @@
             </li>
             <li>About Me
                 <ul>
-                    <li>Introduction</li>
-                    <li>A little bit of my background</li>
-                    <li>Skills and Interests</li>
-                    <li>Goals and Achievements</li>
+                    <li><strike>Introduction</strike></li>
+                    <li><strike>A little bit of my background</strike></li>
+                    <li><strike>Skills and Interests</strike></li>
+                    <li><strike>Goals and Achievements</strike></li>
                 </ul>
             </li>
             <li>Contact information</li>
