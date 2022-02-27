@@ -1,8 +1,7 @@
 /*  typography */
 @import url("https://fonts.googleapis.com/css?family=Playfair+Display:700|Roboto:400");
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-
-
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
 
 body {
   line-height: 1.2;
@@ -92,9 +91,10 @@ h6, .h6 {
 }
 
 .btn-primary {
-  background: #41228e;
+  background: #2d2d2d;
   color: #fff;
 }
+
 .btn-primary:active {
   background: #542cb7 !important;
 }
@@ -108,11 +108,11 @@ h6, .h6 {
 
 .btn-transparent {
   background: transparent;
-  color: #41228e;
+  color: #2d2d2d;
   font-weight: bold;
 }
 .btn-transparent:active, .btn-transparent:hover {
-  color: #41228e;
+  color: #2d2d2d;
 }
 
 body {
@@ -174,11 +174,11 @@ select:focus {
 }
 
 a.text-dark:hover {
-  color: #41228e !important;
+  color: #2d2d2d !important;
 }
 
 a:hover {
-  color: #41228e;
+  color: #2d2d2d;
 }
 
 .slick-slide {
@@ -224,7 +224,7 @@ a:hover {
 }
 
 .bg-primary {
-  background: #41228e !important;
+  background: #2d2d2d !important;
 }
 
 .bg-gray {
@@ -232,7 +232,7 @@ a:hover {
 }
 
 .text-primary {
-  color: #41228e !important;
+  color: #2d2d2d !important;
 }
 
 .text-color {
@@ -365,7 +365,7 @@ a:hover {
   height: 60px;
 }
 .form-control:focus {
-  border-color: #41228e;
+  border-color: #2d2d2d;
   outline: 0;
   box-shadow: none !important;
 }
@@ -392,7 +392,7 @@ textarea.form-control {
   transition: 0.3s ease;
 }
 .navigation.nav-bg {
-  background-color: #41228e;
+  background-color: #2d2d2d;
   padding: 15px 100px;
 }
 @media (max-width: 991px) {
@@ -403,7 +403,7 @@ textarea.form-control {
 @media (max-width: 991px) {
   .navigation {
     padding: 20px;
-    background: #41228e;
+    background: #2d2d2d;
   }
 }
 
@@ -562,7 +562,7 @@ textarea.form-control {
   transition: 0.3s ease;
 }
 .hover-bg-primary:hover {
-  background: #41228e;
+  background: #2d2d2d;
 }
 .hover-bg-primary:hover * {
   color: #fff;
@@ -570,7 +570,7 @@ textarea.form-control {
 
 .active-bg-primary {
   transition: 0.3s ease;
-  background: #41228e;
+  background: #2d2d2d;
 }
 .active-bg-primary * {
   color: #fff;
@@ -704,7 +704,7 @@ blockquote {
   display: inline-block;
   padding: 20px 25px;
   background: #eaeaea;
-  border-left: 3px solid #41228e;
+  border-left: 3px solid #2d2d2d;
   font-style: italic;
   font-size: 22px;
   line-height: 1.7;
@@ -838,4 +838,10 @@ html, body, p, h1, h2, h3, h4, h5, h6, a, li, footer, header, section, div, .foo
   color: #fff !important;
   font-family: 'Times New Roman', Times, serif !important;
   text-shadow: 1em 1em 1em rgba(0, 0, 0, 0.3);
+}
+
+
+.highlight {
+  color: #542cb7;
+  font-weight: bold;
 }

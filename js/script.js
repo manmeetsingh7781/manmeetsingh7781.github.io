@@ -8,8 +8,6 @@
 (function ($) {
     'use strict';
 
-
-
     // Sticky Menu
     $(window).scroll(function () {
         if ($('.navigation').offset().top > 100) {
@@ -162,3 +160,4 @@
 
 
 })(jQuery);
+

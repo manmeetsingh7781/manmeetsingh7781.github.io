@@ -3,6 +3,7 @@
     <li>Logo on Left side</li>
     <li>Right side:
         <ul>
+            <!-- ---------------DONE--------------------- -->
             <li>Home Page (active)
                 <ul>
                     <li>Intro Banner: Name and my major</li>
@@ -12,6 +13,8 @@
                     <li>Work Experience</li>
                 </ul>
             </li>
+            <!-- ------------------------------------ -->
+
             <li>Blog of my notes
                 <ul>
                     <li style="list-style-type: none;">
