@@ -18,32 +18,37 @@
                 <ul>
                     <li style="list-style-type: none;">
                         <ul>
-                            <li>Algorithms
-                                <ul>
-                                    <li>Searching</li>
-                                    <li>Sorting</li>
-                                    <li>Big O</li>
-                                    <li>Misc</li>
-                                </ul>
-                            </li>
-                            <li>Data structures<br />
-                                <ul>
-                                    <li>Linear
-                                        <ul>
-                                            <li>Array</li>
-                                            <li>Linked List</li>
-                                            <li>Stacks</li>
-                                            <li>Queue</li>
-                                        </ul>
-                                    </li>
-                                    <li>Non-Linear:
-                                        <ul>
-                                            <li>Binary Tree</li>
-                                            <li>AVL Tree</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
+                            <strike>
+                                <li>Algorithms
+                                    <ul>
+                                        <li>Searching</li>
+                                        <li>Sorting</li>
+                                        <li>Big O</li>
+                                        <li>Misc</li>
+                                    </ul>
+                                </li>
+                            </strike>
+                            <strike>
+                                <li>Data structures
+                                <br />
+                                    <ul>
+                                        <li>Linear
+                                            <ul>
+                                                <li>Array</li>
+                                                <li>Linked List</li>
+                                                <li>Stacks</li>
+                                                <li>Queue</li>
+                                            </ul>
+                                        </li>
+                                        <li>Non-Linear:
+                                            <ul>
+                                                <li>Binary Tree</li>
+                                                <li>AVL Tree</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </strike>
                         </ul>
                     </li>
                 </ul>

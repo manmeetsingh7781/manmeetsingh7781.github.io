@@ -1,0 +1,718 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Hash Tables</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="7d449a63-ee12-4c55-a630-3eaa81f18e71" class="page sans"><header><h1 class="page-title">Hash Tables</h1><table class="properties"><tbody><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Column</th><td><span class="selected-value select-value-color-pink">Data Structure</span></td></tr><tr class="property-row property-row-date"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesDate"><path d="M10.8889,5.5 L3.11111,5.5 L3.11111,7.05556 L10.8889,7.05556 L10.8889,5.5 Z M12.4444,1.05556 L11.6667,1.05556 L11.6667,0 L10.1111,0 L10.1111,1.05556 L3.88889,1.05556 L3.88889,0 L2.33333,0 L2.33333,1.05556 L1.55556,1.05556 C0.692222,1.05556 0.00777777,1.75556 0.00777777,2.61111 L0,12.5 C0,13.3556 0.692222,14 1.55556,14 L12.4444,14 C13.3,14 14,13.3556 14,12.5 L14,2.61111 C14,1.75556 13.3,1.05556 12.4444,1.05556 Z M12.4444,12.5 L1.55556,12.5 L1.55556,3.94444 L12.4444,3.94444 L12.4444,12.5 Z M8.55556,8.61111 L3.11111,8.61111 L3.11111,10.1667 L8.55556,10.1667 L8.55556,8.61111 Z"></path></svg></span>Lesson Date</th><td><time>@January 19, 2022</time></td></tr><tr class="property-row property-row-select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesSelect"><path d="M7,13 C10.31348,13 13,10.31371 13,7 C13,3.68629 10.31348,1 7,1 C3.68652,1 1,3.68629 1,7 C1,10.31371 3.68652,13 7,13 Z M3.75098,5.32278 C3.64893,5.19142 3.74268,5 3.90869,5 L10.09131,5 C10.25732,5 10.35107,5.19142 10.24902,5.32278 L7.15771,9.29703 C7.07764,9.39998 6.92236,9.39998 6.84229,9.29703 L3.75098,5.32278 Z"></path></svg></span>Status</th><td><span class="selected-value select-value-color-green">Complete</span></td></tr></tbody></table></header><div class="page-body"><h1 id="676d2b6d-e299-4c7c-bd13-a3bb49d2af8c" class="">Introduction</h1><p id="bc1aeefb-34c0-4fd7-9425-e18cd0f320eb" class="">
+</p><ul id="9d8d1d88-1b5b-4a4a-8683-9d9486a0dfae" class="bulleted-list"><li style="list-style-type:disc">A Hash Table in different Programming languages also called: Hashes, maps, hash maps, dictionaries and associative arrays</li></ul><ul id="029b1695-8cb7-4733-9fb6-88f7f82d56a4" class="bulleted-list"><li style="list-style-type:disc">Hash tables provide us with fast reading, in other words instant lookup with <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> time complexity.</li></ul><p id="e93260ec-0cb4-4706-9458-de29c69ac8d0" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="e1e998ff-1549-46cc-bcf6-1a7b1667f2d6"><div style="font-size:1.5em"><span class="icon">📎</span></div><div style="width:100%">Hash tables use <strong>Arrays</strong>. So, that we get Fast Lookups.</div></figure><p id="6e9f95b0-9a81-4eca-b270-fc92ecaa892b" class="">
+</p><ul id="6edd279a-2193-4da9-aa7b-b72deaec2655" class="bulleted-list"><li style="list-style-type:disc">Example: </li></ul><pre id="e4f0685c-0f3e-4686-9534-3568b8a1b717" class="code"><code>menu = {
+				&quot;French Fries&quot; : 2.99,
+				&quot;Sandwich&quot; : 6.99,
+				&quot;Drink&quot;: 2.19
+			}</code></pre><ul id="bc70e7f0-8564-4de3-ac50-84335e7c51e6" class="bulleted-list"><li style="list-style-type:disc">A hash table is a list of <strong>paired </strong>values. The first item in each pair is called <strong><em>key</em></strong><em>, </em>and the second item is called <strong><em>value</em></strong><em>.</em> So, its {key, value} pair.</li></ul><ul id="27df15d2-c4cc-468d-84ea-537e23a14732" class="bulleted-list"><li style="list-style-type:disc">In the code above,  “<mark class="highlight-teal">French Fries</mark>” can be one of the key and the value associated with that key is <mark class="highlight-teal">2.99</mark></li></ul><p id="59f60172-de54-437d-bdd0-d1749ffa0425" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="58d22ff8-0284-45d1-945d-632b22f688e3"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Each key can exist only once in the Hash Table, but there can be multiple instances of a value.</div></figure><p id="5600ddfa-27b1-4306-b289-cb0e396da421" class="">
+</p><h1 id="e2e6300f-799f-4db9-a0a2-e3b280565df7" class="">Hashing with Hash Functions</h1><p id="7016271f-65c6-46cb-b5b8-02e8b57bceb6" class="">
+</p><ul id="61fe14d9-01e9-4db6-8340-89381f398a66" class="bulleted-list"><li style="list-style-type:disc">A <em>key </em>is in the form of string, and the function takes each character of string and converts it to the numbers, this process of conversion is done by Hash Functions.</li></ul><p id="8f09564e-8aee-4f56-9e1b-8f39e2bf707b" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="2b533ca0-33eb-4915-917c-720f5b877e00"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%">In order a hash function to be valid, it must convert the same string (key) to the same number every single time it’s applied.</div></figure><p id="92a7df44-8cca-4345-800f-e6ff798afbdd" class="">
+</p><ul id="383f4846-9c02-4b65-afe0-1a4669d9d98a" class="bulleted-list"><li style="list-style-type:disc">There are many different type of hash functions, most common is <strong>Remainder Hashing</strong>.</li></ul><ul id="724926c0-a4a2-41d7-999c-b2e3bd871c82" class="bulleted-list"><li style="list-style-type:disc">No functions can be used that use random numbers or the current time as a part of calculation.<p id="393088d9-15d5-41e3-8840-5ae9361f0f68" class="">
+</p><h2 id="cb696cf3-8bde-4437-b064-de035a977f30" class="">Remainder Hashing</h2><ul id="02f7a5fc-337b-4a7c-a094-3c54693edbba" class="bulleted-list"><li style="list-style-type:circle">For Example: the key is <strong>CAR</strong><p id="e1ccdf48-b66b-471f-a774-24ce9741be29" class="">
+</p><ul id="d06c9469-aa9c-4d5f-a44d-71685233884c" class="bulleted-list"><li style="list-style-type:square">we expect hash function to work like this:<pre id="6905cc94-a6f6-4f24-8040-aff169efd5df" class="code"><code>
+// converting key (CAR) to a numerical value
+C = 67
+A = 65
+R = 82
+
+// by adding
+value = 67 + 65 + 82 % table_size
+
+// by multiplication 
+value2 =  67 * 65 * 82 % table_size
+
+
+// BMW is stored inside the array at index of value
+table [ value ] = &quot;BMW&quot;</code></pre><p id="bc55e7a9-ebc6-47d0-b5ea-17c7f33b19f5" class="">
+</p><h3 id="24d1586d-eb83-4254-a368-afc05a12c25b" class="">Code</h3><pre id="8ef0505c-c9a2-44a0-a499-d80205e8e53c" class="code"><code>// remainder hashing function
+public static int hash(String key) {
+	
+	// a variable to store result of numerical representation of our key
+	int value = 0;
+
+	// iterate through each character in key and convert to number 
+
+	for (int i = 0; i &lt; key.length(); i++) {
+			// here we can either add or multiple
+			value = value + key.charAt(i);
+	}
+
+	return value % table_size;
+}</code></pre></li></ul></li></ul></li></ul><p id="aad89783-7aa1-4b6d-8aab-8a42e0889af2" class="">
+</p><p id="7ea78e7e-12ab-493c-9d56-d361f2a3f1e5" class="">
+</p><h1 id="bdff9f6d-9491-4d0b-a3eb-0a6f991f52bd" class="">Hash Table Lookups</h1><ul id="192b6eb8-7b0e-4c48-922e-a722f5ab12e9" class="bulleted-list"><li style="list-style-type:disc">When we look up items from a hash table, we use a <em><strong>key </strong></em>to find its associated value.</li></ul><ul id="c3017de6-a613-48f2-9e51-a51eb8c9550c" class="bulleted-list"><li style="list-style-type:disc">Suppose if we want to look up an item from our code example above (menu), this is what we should do: </li></ul><pre id="218e4d1b-17f2-4ac4-b312-d7dfb01353b3" class="code"><code>menu [&quot;Sandwich&quot;] 
+
+and this will give us the price of it which is 6.99</code></pre><ul id="c402922a-ae9b-4cee-8c26-1f4a8fc78235" class="bulleted-list"><li style="list-style-type:disc">To find the value associated with “<mark class="highlight-teal"><strong>Sandwich</strong></mark>”, the computer executes two simple steps. <mark class="highlight-gray"><em>(as we saw in the Remainder Hashing method above)</em></mark><ol type="1" id="d2a734fa-cfbe-46e4-84c0-3f14ca6c54a9" class="numbered-list" start="1"><li>The computer hashed the key we are looking up: “Sandwich” ⇒ 2. Assuming our hash function returned us <strong>2. </strong></li></ol><ol type="1" id="d48b3171-8797-4c4e-b2db-6bf8e4f84c1e" class="numbered-list" start="2"><li>Since the result is 2, the computer looks inside an <strong>array</strong> at index 2 and returns the value.</li></ol></li></ul><p id="e514502e-533e-43d8-a625-409ed4deaadd" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="900d4344-bae1-42f9-b3df-f0386b7c4c27"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%">Hash function takes a <em><strong>key</strong></em>, turns into a <strong>number</strong>, and jumps to the <strong>index</strong> with that number in an array to retrieve the stored value.</div></figure><p id="7b7f3b5c-e927-4bfd-94b7-7c82331f202a" class="">
+</p><blockquote id="dafd12c5-0d7a-48f3-9888-e958d26b8412" class="">Simple fact: <strong>Looking up an item in: </strong></blockquote><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="654f15fe-ddf5-4aa3-96c4-0c3ff9d1e250"><div style="font-size:1.5em"><span class="icon">1️⃣</span></div><div style="width:100%">an unordered array would take O(N).  <mark class="highlight-gray"><em>Linear Search</em></mark></div></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="e7bf1be8-91a5-49c2-80f5-307cf02219c7"><div style="font-size:1.5em"><span class="icon">2️⃣</span></div><div style="width:100%">an ordered array would take <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log_2(N))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mclose">))</span></span></span></span></span><span>﻿</span></span>. <mark class="highlight-gray"><em>Binary Search</em></mark></div></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="c87fd814-a981-4773-9f4d-10a1e5bd992e"><div style="font-size:1.5em"><span class="icon">3️⃣</span></div><div style="width:100%">Hash tables <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span>. <mark class="highlight-gray"><em>Hash function</em></mark></div></figure><p id="439b509b-6260-40ba-8f1d-1815e2c87974" class="">
+</p><h1 id="cedd8f35-0d64-459b-8cba-d27ed8bb1e1a" class="">Dealing with Collisions</h1><ul id="f77acd2f-6721-490a-bacb-c89a4a105523" class="bulleted-list"><li style="list-style-type:disc">Trying to add data to a cell that is already filled is knows as a collision. </li></ul><ul id="90f51451-b4ed-4c93-92de-96c907de90c2" class="bulleted-list"><li style="list-style-type:disc">One way to handle this issue is that to use <strong>Separate chaining.</strong><p id="cbacfb8d-784a-49a2-a3e6-c390932f1bdf" class="">
+</p><h3 id="c81940af-5c6c-41b6-bd74-708b05c39541" class="">Separate Chaining</h3><ul id="722e92b5-8b36-4094-bade-b4371c9d2477" class="bulleted-list"><li style="list-style-type:circle">When a collision occurs, instead of placing a single value in the cell, it places in it a reference to an array</li></ul><p id="8011d7fb-86b3-4d0a-8e1c-dbe76242c8bf" class="">
+</p><figure id="3896d734-ca96-46d0-966e-0b64560eff1f" class="image"><a href="Hash%20Table%207d449/chaining.svg"><img style="width:1500px" src="Hash%20Table%207d449/chaining.svg"/></a></figure><p id="f30ed22f-9b04-425f-a650-f538352461dd" class="">The array contains <strong>key </strong>and <strong>value </strong>associated with it, and when we hash the key to retrieve the value, the algorithm will search through the array <strong>linearly</strong> to find the value.</p><figure id="252de71a-7450-49b4-a0e1-545483740412" class="image"><a href="Hash%20Table%207d449/searching.svg"><img style="width:1500px" src="Hash%20Table%207d449/searching.svg"/></a></figure><p id="3802ea2b-2c97-4486-b158-5e21ce742396" class="">In this case of collision, our code turns out to be <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(N)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> in the worst-case performance. And because of this it is critical that a hash table is designed that way it will have few collisions and therefore typically perform lookups in <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> rather than <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(N)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> time.</p><p id="5eb680b0-b500-4e7e-998b-22cd84dcc6c5" class="">
+</p><p id="1a29d41a-9754-4b31-aa6e-4192ebaad013" class="">
+</p></li></ul><h1 id="e199ce4b-0460-49a3-a6cc-cc1ddd81b4e1" class="">Making an Efficient Hash Table</h1><p id="8869b5fb-d16d-4390-81e6-f9e3408c24f6" class="">
+</p><ol type="1" id="5c4ec163-0637-4d4a-92cd-52bf5a1f88a7" class="numbered-list" start="1"><li>How much data we’re storing </li></ol><ol type="1" id="752bd681-0f2b-4a38-a9c1-0e19782387fd" class="numbered-list" start="2"><li>How many cells are available</li></ol><ol type="1" id="af315e88-1e31-4d0b-87a2-b7f4f8a90d88" class="numbered-list" start="3"><li>Which hash function we’re using</li></ol><p id="a9a34f97-992f-4ee3-a510-db0dc16edeff" class="">
+</p><ul id="635b48e1-5fcc-45b3-9437-f30e8212dd8d" class="bulleted-list"><li style="list-style-type:disc">If you have a lot of data and only a few cells, there will be many collisions and hash table will lose its efficiency.</li></ul><p id="7473b787-2ed6-4d9f-8231-f4272809cea1" class="">
+</p><ul id="36bf733a-0c35-4b25-95e7-7af947584043" class="bulleted-list"><li style="list-style-type:disc">If the hash function is giving same values continuously then all of the data will be stored as chained and will lose its efficiency.</li></ul><p id="071ba69f-bf61-490c-93a4-a48ef2ddf838" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="e9c92b3b-2ea2-4d8a-ab49-664296c70aea"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">A good hash function is one that distributes its data across all available cells, The more we can spread out our data, the fewer collisions we will have.</div></figure><p id="d3c71d23-c056-4c12-ae4f-0ffdd25171c9" class="">
+</p><p id="dda05c8b-5af1-4f38-bb7f-be8b3dc1d5bc" class="">
+</p><h1 id="5f111fb8-3f5b-4286-b2d1-01f4f2e5da17" class="">The Great Balancing Act</h1><ul id="212b0a93-1b4f-4617-827f-2ff806b41ce9" class="bulleted-list"><li style="list-style-type:disc">Efficiency goes up as its number of collisions goes down.</li></ul><ul id="4c5cc73e-e628-41dc-97d6-1e58a0d243f7" class="bulleted-list"><li style="list-style-type:disc">Best way to avoid collisions would be to have a hash table with a large number of cells.</li></ul><ul id="08f24793-b635-4acd-b982-6573bfd757da" class="bulleted-list"><li style="list-style-type:disc">A good hash table strikes a balance of avoiding collisions while not consuming lots of memory.</li></ul><ul id="75b6dca4-58c1-4aec-800f-4b877061e58e" class="bulleted-list"><li style="list-style-type:disc">To accomplish this, there is a rule of thumb that for every 7 elements stored in a table it should have 10 cells. If we are storing 14 elements we would have 20 cells. <ul id="73da4d61-e32f-4d8d-933f-b44784831290" class="bulleted-list"><li style="list-style-type:circle">This ratio of data to cell is called the <strong>load factor</strong>, and the ideal load factor is 0.7 (7 elements / 10 cells).</li></ul></li></ul><p id="5317ad4f-9da3-4a37-8de6-d4e218a9bfcf" class="">
+</p></div></article></body></html>
